@@ -138,3 +138,4 @@ GitHub.sublime-settings
 
 # Mac
 .DS_Store
+.idea/
