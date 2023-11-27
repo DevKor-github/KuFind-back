@@ -24,5 +24,5 @@ from core import views as core_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('lost/user/', include('user.urls')),
+    path('auth/user/', include('user.urls')),
 ]
