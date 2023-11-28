@@ -8,7 +8,7 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin,
 )
-# from django.utils import timezone
+from django.utils import timezone
 
 
 def person_image_file_path(instance, filename):
@@ -76,3 +76,13 @@ class Object(models.Model):
 
     def __str__(self):
         return self.title
+    
+class PersonComment(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Person, related_name='comments', on_delete=models.CASCADE)
+    text = models.TextField()
+
+class ObjectComment(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Person, related_name='comments', on_delete=models.CASCADE)
+    text = models.TextField()

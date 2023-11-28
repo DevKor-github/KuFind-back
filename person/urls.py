@@ -9,7 +9,8 @@ from person import views
 
 
 router = DefaultRouter()
-router.register('', views.PersonViewSet)
+router.register('person', views.PersonViewSet)
+router.register('comments', views.CommentViewSet)
 
 app_name = 'person'
 

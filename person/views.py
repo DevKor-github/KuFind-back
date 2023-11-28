@@ -8,9 +8,8 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.filters import SearchFilter
 
-from core.models import Person
-from person import serializers
-
+from core.models import Person, PersonComment
+from person import serializers, permissions
 
 class PersonViewSet(viewsets.ModelViewSet):
     #View for manage person APIs.
@@ -51,6 +50,19 @@ class PersonViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = PersonComment.objects.all()
+    permission_classes = [permissions.CustomReadOnly]
     
+    def get_serializer_class(self):
+        if self.action == 'list' or 'retrieve':
+            return serializers.CommentSerializer
+        return serializers.CommentCreateSerializer
+    
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user,)
+
+
     
 

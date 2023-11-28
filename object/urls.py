@@ -10,6 +10,7 @@ from object import views
 
 router = DefaultRouter()
 router.register('', views.ObjectViewSet)
+router.register('comments', views.CommentViewSet)
 
 app_name = 'object'
 
