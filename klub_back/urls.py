@@ -29,11 +29,19 @@ from core import views as core_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/schema', SpectacularAPIView.as_view(), name='api-schema'),
+    path('schema/', SpectacularAPIView.as_view(), name='schema'),
     path(
-        'api/docs/',
-        SpectacularSwaggerView.as_view(url_name='api-shema'),
-        name='api-docs'
+        'docs/',
+        SpectacularSwaggerView.as_view(url_name='schema'),
+        name='docs'
     ),
     path('auth/', include('user.urls')),
+    path('person/',include('person.urls'))
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += static(
+        settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT,
+    )
