@@ -9,7 +9,7 @@ from object import views
 
 
 router = DefaultRouter()
-router.register('', views.PersonViewSet)
+router.register('', views.ObjectViewSet)
 
 app_name = 'object'
 
