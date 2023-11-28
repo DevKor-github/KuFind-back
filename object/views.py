@@ -6,6 +6,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.filters import SearchFilter
 
 from core.models import Object
 from object import serializers
@@ -17,6 +18,10 @@ class ObjectViewSet(viewsets.ModelViewSet):
     queryset = Object.objects.all()
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+
+    filter_backends = [SearchFilter]
+    search_fields = ['title']
+
 
     def get_queryset(self):
         #Retrieve object for authenticated user.

@@ -6,6 +6,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.filters import SearchFilter
 
 from core.models import Person
 from person import serializers
@@ -17,6 +18,10 @@ class PersonViewSet(viewsets.ModelViewSet):
     queryset = Person.objects.all()
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+
+
+    filter_backends = [SearchFilter]
+    search_fields = ['title']
 
     def get_queryset(self):
         #Retrieve person for authenticated user.
@@ -46,4 +51,6 @@ class PersonViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
 
