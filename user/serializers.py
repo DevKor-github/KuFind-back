@@ -12,17 +12,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ['email', 'password', 'password2', 'name']
-        extra_kwargs = {'password': {'write_only': True, 'min_length': 5}, 'password2': {'write_only':True}}
-
-    def validate(self, data):
-        # password와 password2의 일치 여부 확인
-        if data['password'] != data['password2']:
-            raise serializers.ValidationError(
-                {'password': 'Password fields didn\'t match.'}
-            )
-        
-        return data
+        fields = ['email', 'password', 'name']
+        extra_kwargs = {'password': {'write_only': True, 'min_length': 5}}
 
     def create(self, validated_data):
         """Create and return a user with encrypted password."""
