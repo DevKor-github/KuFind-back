@@ -11,12 +11,18 @@ from django.contrib.auth.models import (
 
 
 def person_image_file_path(instance, filename):
-    #Generate file path for new recipe image.
+    #Generate file path for new person image.
     ext = os.path.splitext(filename)[1]
     filename = f'{uuid.uuid4()}{ext}'
 
     return os.path.join('uploads', 'person', filename)
 
+def object_image_file_path(instance, filename):
+    #Generate file path for new object image.
+    ext = os.path.splitext(filename)[1]
+    filename = f'{uuid.uuid4()}{ext}'
+
+    return os.path.join('uploads', 'object', filename)
 
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None, ** extra_fields):
@@ -65,8 +71,7 @@ class Object(models.Model):
     )
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
-
-    
+    image = models.ImageField(null=True, upload_to=object_image_file_path)
 
     def __str__(self):
         return self.title

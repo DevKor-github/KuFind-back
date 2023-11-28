@@ -36,7 +36,8 @@ urlpatterns = [
         name='docs'
     ),
     path('auth/', include('user.urls')),
-    path('person/',include('person.urls'))
+    path('person/', include('person.urls')),
+    path('object/', include('object.urls')),
 ]
 
 
