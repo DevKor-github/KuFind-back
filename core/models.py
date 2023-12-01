@@ -84,5 +84,5 @@ class PersonComment(models.Model):
 
 class ObjectComment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    post = models.ForeignKey(Person, related_name='comments', on_delete=models.CASCADE)
+    post = models.ForeignKey(Object, related_name='comments', on_delete=models.CASCADE)
     text = models.TextField()
