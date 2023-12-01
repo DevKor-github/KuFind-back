@@ -51,6 +51,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
 
+    objects = UserManager()
+
 class Person(models.Model):
     #Person object.
     user = models.ForeignKey(
