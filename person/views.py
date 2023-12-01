@@ -7,8 +7,10 @@ from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.filters import SearchFilter
+from django.shortcuts import get_object_or_404
+from django.views.generic import ListView, DetailView
 
-from core.models import Person
+from .models import Person, Comment
 from person import serializers
 
 
@@ -51,6 +53,44 @@ class PersonViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    
+
+
+# def new_comment(request, pk):
+#     if request.user.is_authenticated:
+#         post = get_object_or_404(Person, pk=pk)
+#
+#         if request.method == 'POST':
+#             comment_form = CommentForm(request.POST)
+#             if comment_form.is_valid():
+#                 comment = comment_form.save(commit=False)
+#                 comment.post = post
+#                 comment.user = request.user
+#                 comment.save()
+#                 return redirect(comment.get_absolute_url())
+#         else:
+#             return redirect(post.get_absolute_url())
+#     else:
+#         raise PermissionDenied
+#
+# class CommentUpdate(LoginRequiredMixin, UpdateView):
+#     model = Comment
+#     form_class = CommentForm
+#
+#     def dispatch(self, request, *args, **kwargs):
+#         if request.user.is_authenticated and request.user == self.get_object().user:
+#             return super(CommentUpdate, self).dispatch(request, *args, **kwargs)
+#         else:
+#             raise PermissionDenied
+#
+#
+#
+# def delete_comment(request, pk):
+#     comment = get_object_or_404(Comment, pk=pk)
+#     person = comment.person
+#     if request.user.is_authenticated and request.user == comment.user:
+#         comment.delete()
+#         return redirect(person.get_absolute_url())
+#     else:
+#         raise PermissionDenied
+
 
